@@ -1844,11 +1844,11 @@ git commit -m "feat(graph): computeSyntheticEdges with company/tag/title-keyword
 - Create: `src/state/store.ts`
 - Modify: `package.json`
 
-- [ ] **Step 1: Install graph library + Zustand**
+- [x] **Step 1: Install graph library + Zustand**
 
 Run: `npm install react-force-graph-2d@^1 zustand@^5`
 
-- [ ] **Step 2: Create state store**
+- [x] **Step 2: Create state store**
 
 `src/state/store.ts`:
 ```ts
@@ -1926,7 +1926,7 @@ export const useStore = create<GraphState>(set => ({
 }));
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/state/ package.json package-lock.json
