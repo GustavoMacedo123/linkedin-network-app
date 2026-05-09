@@ -3408,7 +3408,7 @@ Goal: When a person is selected, the right panel shows their full profile, an ed
 - Create: `src/db/personDetail.ts`
 - Modify: `src/components/ProfilePanel.tsx`
 
-- [ ] **Step 1: Create personDetail loader**
+- [x] **Step 1: Create personDetail loader**
 
 `src/db/personDetail.ts`:
 ```ts
@@ -3445,7 +3445,7 @@ export async function updateNotes(db: Db, id: number, notes_md: string): Promise
 }
 ```
 
-- [ ] **Step 2: Replace ProfilePanel.tsx (header + empty state)**
+- [x] **Step 2: Replace ProfilePanel.tsx (header + empty state)**
 
 ```tsx
 import { useEffect, useState } from "react";
@@ -3520,7 +3520,7 @@ export function ProfilePanel() {
 Run: `npm run tauri dev`
 Expected: After import + click on a node, the right panel shows the person's name, title @ company, connection date, and "Open on LinkedIn" link.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add src/db/personDetail.ts src/components/ProfilePanel.tsx
