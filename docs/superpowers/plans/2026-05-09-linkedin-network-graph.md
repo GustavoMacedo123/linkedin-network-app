@@ -4505,7 +4505,7 @@ git commit -m "feat(import): prune snapshots older than 7 days on startup"
 **Files:**
 - Modify: `src/components/Sidebar.tsx`
 
-- [ ] **Step 1: Add ref + keydown handler**
+- [x] **Step 1: Add ref + keydown handler**
 
 In Sidebar.tsx, add a ref to the search input:
 ```tsx
@@ -4535,7 +4535,7 @@ Bind to the input: `<input ref={searchRef} ... />`.
 Run: `npm run tauri dev`
 Expected: Cmd/Ctrl+F focuses the search input from anywhere in the app.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/components/Sidebar.tsx

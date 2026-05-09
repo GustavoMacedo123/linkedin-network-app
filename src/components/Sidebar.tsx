@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useStore } from "@/state/store";
 import { matchesFilter } from "@/state/selectors";
 import { getDb } from "@/db/client";
@@ -23,6 +23,20 @@ export function Sidebar() {
   const setNoteMatchIds = useStore(s => s.setNoteMatchIds);
   const setSettingsOpen = useStore(s => s.setSettingsOpen);
   const setReimporting = useStore(s => s.setReimporting);
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const cmdOrCtrl = e.metaKey || e.ctrlKey;
+      if (cmdOrCtrl && e.key.toLowerCase() === "f") {
+        e.preventDefault();
+        searchRef.current?.focus();
+        searchRef.current?.select();
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   useEffect(() => {
     if (!search.trim().toLowerCase().startsWith("note:")) {
@@ -85,6 +99,7 @@ export function Sidebar() {
       <div>
         <div className="text-xs font-bold text-neutral-400 mb-1.5">SEARCH</div>
         <input
+          ref={searchRef}
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
