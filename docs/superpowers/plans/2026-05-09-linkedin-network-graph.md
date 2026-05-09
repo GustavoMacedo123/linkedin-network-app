@@ -1941,7 +1941,7 @@ git commit -m "feat(state): Zustand store for graph + filter state"
 - Modify: `src/components/GraphCanvas.tsx`
 - Create: `src/db/persons.ts`
 
-- [ ] **Step 1: Create db/persons.ts loader**
+- [x] **Step 1: Create db/persons.ts loader**
 
 `src/db/persons.ts`:
 ```ts
@@ -1976,7 +1976,7 @@ export async function loadAllPersons(db: Db): Promise<PersonNode[]> {
 }
 ```
 
-- [ ] **Step 2: Replace GraphCanvas**
+- [x] **Step 2: Replace GraphCanvas**
 
 `src/components/GraphCanvas.tsx`:
 ```tsx
@@ -2042,7 +2042,7 @@ export function GraphCanvas() {
 }
 ```
 
-- [ ] **Step 3: Update App.tsx to load persons into store after import**
+- [x] **Step 3: Update App.tsx to load persons into store after import**
 
 Replace `src/App.tsx`:
 ```tsx
@@ -2092,7 +2092,7 @@ export default function App() {
 Run: `npm run tauri dev`
 Expected: After importing a CSV, the central pane shows a force-directed graph; clicking a node selects it (sidebar/profile still placeholder).
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/components/GraphCanvas.tsx src/db/persons.ts src/App.tsx
