@@ -2891,7 +2891,7 @@ git commit -m "feat(sidebar): search input, companies list with filter toggle, s
 **Files:**
 - Modify: `src/components/GraphCanvas.tsx`
 
-- [ ] **Step 1: Replace GraphCanvas.tsx — add filter-aware visible set + opacity dimming**
+- [x] **Step 1: Replace GraphCanvas.tsx — add filter-aware visible set + opacity dimming**
 
 ```tsx
 import { useMemo, useRef, useEffect } from "react";
@@ -3008,7 +3008,7 @@ export function GraphCanvas() {
 Run: `npm run tauri dev`
 Expected: After import, typing in the search box dims non-matching nodes. Clicking a company chip dims everyone outside that company.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/components/GraphCanvas.tsx
