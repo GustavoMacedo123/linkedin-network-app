@@ -1464,11 +1464,11 @@ git commit -m "feat(tauri): snapshot, restore, open_data_dir, prune commands"
 - Create: `src/components/ImportDialog.tsx`, `tests/components/ImportDialog.test.tsx`
 - Modify: `package.json`
 
-- [ ] **Step 1: Install dialog plugin JS bindings**
+- [x] **Step 1: Install dialog plugin JS bindings**
 
 Run: `npm install @tauri-apps/plugin-dialog@^2 @tauri-apps/api@^2`
 
-- [ ] **Step 2: Write component test (uses RTL + mocked Tauri APIs)**
+- [x] **Step 2: Write component test (uses RTL + mocked Tauri APIs)**
 
 `tests/components/ImportDialog.test.tsx`:
 ```tsx
@@ -1516,12 +1516,12 @@ describe("ImportDialog", () => {
 });
 ```
 
-- [ ] **Step 3: Run to verify failure**
+- [x] **Step 3: Run to verify failure**
 
 Run: `npm test -- ImportDialog`
 Expected: FAIL — component not found.
 
-- [ ] **Step 4: Implement**
+- [x] **Step 4: Implement**
 
 `src/components/ImportDialog.tsx`:
 ```tsx
@@ -1591,18 +1591,18 @@ export function ImportDialog({ db, onComplete }: Props) {
 }
 ```
 
-- [ ] **Step 5: Run tests to verify pass**
+- [x] **Step 5: Run tests to verify pass**
 
 Run: `npm test -- ImportDialog`
 Expected: 1 test passes.
 
-- [ ] **Step 6: Install fs plugin in Rust + JS**
+- [x] **Step 6: Install fs plugin in Rust + JS**
 
 Add `tauri-plugin-fs = "2"` to `src-tauri/Cargo.toml` `[dependencies]`. In `main.rs`, register plugin: `.plugin(tauri_plugin_fs::init())`.
 
 Run: `npm install @tauri-apps/plugin-fs@^2`
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add src/components/ImportDialog.tsx tests/components/ImportDialog.test.tsx src-tauri/ package.json package-lock.json
