@@ -1133,7 +1133,7 @@ git commit -m "feat(csv): parseConnectionsCsv with PapaParse and dedupe"
 **Files:**
 - Create: `src/csv/merge.ts`, `tests/csv/merge.test.ts`
 
-- [ ] **Step 1: Write failing tests**
+- [x] **Step 1: Write failing tests**
 
 `tests/csv/merge.test.ts`:
 ```ts
@@ -1221,12 +1221,12 @@ describe("mergeConnections", () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npm test -- merge`
 Expected: FAIL — module not found.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 `src/csv/merge.ts`:
 ```ts
@@ -1304,12 +1304,12 @@ export async function mergeConnections(
 }
 ```
 
-- [ ] **Step 4: Run tests to verify pass**
+- [x] **Step 4: Run tests to verify pass**
 
 Run: `npm test -- merge`
 Expected: 5 tests pass.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/csv/merge.ts tests/csv/merge.test.ts
