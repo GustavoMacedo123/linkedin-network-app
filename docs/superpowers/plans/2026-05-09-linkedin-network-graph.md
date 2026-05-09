@@ -987,11 +987,11 @@ git commit -m "feat(csv): findHeaderLine skips LinkedIn preamble"
 - Modify: `src/csv/parse.ts`, `tests/csv/parse.test.ts`
 - Modify: `package.json`
 
-- [ ] **Step 1: Install PapaParse**
+- [x] **Step 1: Install PapaParse**
 
 Run: `npm install papaparse@^5 && npm install -D @types/papaparse@^5`
 
-- [ ] **Step 2: Add tests for parseConnectionsCsv**
+- [x] **Step 2: Add tests for parseConnectionsCsv**
 
 Append to `tests/csv/parse.test.ts`:
 ```ts
@@ -1051,12 +1051,12 @@ describe("parseConnectionsCsv", () => {
 });
 ```
 
-- [ ] **Step 3: Run to verify failure**
+- [x] **Step 3: Run to verify failure**
 
 Run: `npm test -- parse`
 Expected: New tests fail — `parseConnectionsCsv` not exported.
 
-- [ ] **Step 4: Implement**
+- [x] **Step 4: Implement**
 
 Append to `src/csv/parse.ts`:
 ```ts
@@ -1114,12 +1114,12 @@ export function parseConnectionsCsv(csv: string): ParseResult {
 }
 ```
 
-- [ ] **Step 5: Run tests to verify pass**
+- [x] **Step 5: Run tests to verify pass**
 
 Run: `npm test -- parse`
 Expected: All parse tests pass.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/csv/parse.ts tests/csv/parse.test.ts package.json package-lock.json
