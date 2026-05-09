@@ -4718,7 +4718,7 @@ Spec coverage check (each section/requirement → which task implements it):
 **Files:**
 - Modify: `src/components/GraphCanvas.tsx`
 
-- [ ] **Step 1: Compute the dominant company per community + render label**
+- [x] **Step 1: Compute the dominant company per community + render label**
 
 Inside the `useMemo` block of GraphCanvas.tsx, build a `communityLabel` map keyed by color:
 
@@ -4774,7 +4774,7 @@ onRenderFramePost={(ctx, globalScale) => {
 Run: `npm run tauri dev`
 Expected: At normal zoom, cluster labels (e.g., "Stripe", "Google", "Mixed") appear over each colored region; they fade out when you zoom in close.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/components/GraphCanvas.tsx

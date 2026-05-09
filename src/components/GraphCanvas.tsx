@@ -57,7 +57,27 @@ export function GraphCanvas() {
       return { id, name: `${p.first_name} ${p.last_name}`, isYou: false, color, size: 4 + c * 6, dim };
     });
 
-    return { nodes, links: edges };
+    const communityLabel = new Map<string, string>();
+    const byColorMembers = new Map<string, { id: number; company: string | null }[]>();
+    for (const n of nodes) {
+      if (n.isYou || n.color === "#cbd5e1") continue;
+      const company = visible.find(p => p.id === n.id)?.company ?? null;
+      const arr = byColorMembers.get(n.color);
+      if (arr) arr.push({ id: n.id, company });
+      else byColorMembers.set(n.color, [{ id: n.id, company }]);
+    }
+    for (const [color, members] of byColorMembers) {
+      const counts = new Map<string, number>();
+      for (const m of members) {
+        if (!m.company) continue;
+        counts.set(m.company, (counts.get(m.company) ?? 0) + 1);
+      }
+      const dominant = [...counts.entries()].sort((a, b) => b[1] - a[1])[0];
+      if (!dominant) continue;
+      communityLabel.set(color, dominant[1] / members.length >= 0.6 ? dominant[0] : "Mixed");
+    }
+
+    return { nodes, links: edges, communityLabel, byColorMembers };
   }, [persons, edgeRule, filterMode, search, selectedCompanies, selectedTagIds, showArchived, noteMatchIds]);
 
   useEffect(() => {
@@ -111,6 +131,24 @@ export function GraphCanvas() {
         }}
         cooldownTicks={150}
         onEngineStop={() => fgRef.current?.zoomToFit(400, 60)}
+        onRenderFramePost={(ctx, globalScale) => {
+          if (globalScale > 2.5) return;
+          for (const [color, members] of data.byColorMembers) {
+            if (members.length < 4) continue;
+            const positions = (data.nodes as any[]).filter(
+              n => n.color === color && typeof n.x === "number"
+            );
+            if (positions.length === 0) continue;
+            const cx = positions.reduce((s, n) => s + n.x, 0) / positions.length;
+            const cy = positions.reduce((s, n) => s + n.y, 0) / positions.length;
+            const label = data.communityLabel.get(color);
+            if (!label) continue;
+            ctx.font = `${12 / globalScale}px ui-sans-serif, system-ui, sans-serif`;
+            ctx.fillStyle = "rgba(55,65,81,0.8)";
+            ctx.textAlign = "center";
+            ctx.fillText(label, cx, cy);
+          }
+        }}
       />
     </main>
   );
