@@ -51,8 +51,8 @@ export interface GraphState {
   setSettingsOpen: (b: boolean) => void;
   reimporting: boolean;
   setReimporting: (b: boolean) => void;
-  lastImportSummary: { added: number; updated: number; archived: number; snapshotPath: string } | null;
-  setLastImportSummary: (s: { added: number; updated: number; archived: number; snapshotPath: string } | null) => void;
+  lastImportSummary: { added: number; updated: number; archived: number; snapshotPath: string; warnings: string[] } | null;
+  setLastImportSummary: (s: { added: number; updated: number; archived: number; snapshotPath: string; warnings: string[] } | null) => void;
 }
 
 export const useStore = create<GraphState>(set => ({

@@ -42,6 +42,7 @@ export function Layout() {
                   updated: result.updated,
                   archived: result.archived,
                   snapshotPath: result.snapshotPath,
+                  warnings: result.warnings,
                 });
                 setReimporting(false);
               }}

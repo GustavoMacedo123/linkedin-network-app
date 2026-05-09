@@ -39,6 +39,11 @@ export function ImportToast() {
     <div className="fixed bottom-4 right-4 bg-neutral-900 text-white text-sm px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 z-40">
       <span>
         Imported · {summary.added} added · {summary.updated} updated · {summary.archived} archived
+        {summary.warnings.length > 0 && (
+          <span className="ml-2 text-yellow-300" title={summary.warnings.join("\n")}>
+            ⚠ {summary.warnings.length} warning{summary.warnings.length === 1 ? "" : "s"}
+          </span>
+        )}
       </span>
       <button
         onClick={undo}

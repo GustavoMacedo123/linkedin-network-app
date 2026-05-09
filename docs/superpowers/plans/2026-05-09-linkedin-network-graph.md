@@ -4549,7 +4549,7 @@ git commit -m "feat(ux): Cmd/Ctrl+F focuses sidebar search"
 **Files:**
 - Modify: `src/components/ImportDialog.tsx`, `src/App.tsx`
 
-- [ ] **Step 1: Show parse warnings in ImportDialog completion (already passed via onComplete — surface in the toast)**
+- [x] **Step 1: Show parse warnings in ImportDialog completion (already passed via onComplete — surface in the toast)**
 
 In `src/components/ImportToast.tsx`, extend the message to mention warnings count if present. Update `lastImportSummary` type in the store to include `warnings: string[]`:
 
@@ -4572,7 +4572,7 @@ In `src/components/ImportToast.tsx`, render warnings count:
 </span>
 ```
 
-- [ ] **Step 2: Wrap top-level App in an ErrorBoundary-style fallback**
+- [x] **Step 2: Wrap top-level App in an ErrorBoundary-style fallback**
 
 In `src/App.tsx`, the existing `error` state already covers DB load failures. Add the same pattern for import:
 - The import flow itself surfaces errors inside the dialog — keep that.
@@ -4604,7 +4604,7 @@ if (error) {
 Run: `npm run tauri dev`
 Expected: Normal use unaffected. (To smoke-test the error path: temporarily corrupt the DB by overwriting `data.sqlite` with garbage and relaunch — should show the recovery message. Restore from backup afterward.)
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add src/state/store.ts src/components/Layout.tsx src/components/ImportToast.tsx src/App.tsx

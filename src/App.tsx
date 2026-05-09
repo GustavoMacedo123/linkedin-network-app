@@ -37,7 +37,23 @@ export default function App() {
     }).catch(e => setError(String(e)));
   }, [refresh]);
 
-  if (error) return <div className="p-8 text-red-600">DB error: {error}</div>;
+  if (error) {
+    return (
+      <div className="p-8 max-w-lg mx-auto text-sm">
+        <div className="text-red-600 font-semibold mb-2">Database error</div>
+        <div className="text-neutral-600 mb-4 break-all">{error}</div>
+        <div className="text-neutral-500">
+          If this keeps happening, the SQLite file may be corrupted. You can restore from a backup
+          in <code>backup/</code> inside your data folder, or delete <code>data.sqlite</code> to start fresh
+          (you'll lose your notes and tags — only do this as a last resort).
+        </div>
+        <button
+          onClick={() => import("@tauri-apps/api/core").then(({ invoke }) => invoke("open_data_dir"))}
+          className="mt-4 px-3 py-1.5 text-sm border border-neutral-300 rounded hover:bg-neutral-50"
+        >Open data folder</button>
+      </div>
+    );
+  }
   if (!db || personCount === null) return <div className="p-8 text-neutral-500">Loading…</div>;
 
   if (personCount === 0) {
