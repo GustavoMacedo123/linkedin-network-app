@@ -2114,7 +2114,7 @@ Goal: Color-code nodes by Louvain community, size them by combined degree+betwee
 **Files:**
 - Create: `src/graph/colors.ts`, `tests/graph/colors.test.ts`
 
-- [ ] **Step 1: Write failing tests**
+- [x] **Step 1: Write failing tests**
 
 `tests/graph/colors.test.ts`:
 ```ts
@@ -2148,12 +2148,12 @@ describe("assignColors", () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npm test -- colors`
 Expected: FAIL.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 `src/graph/colors.ts`:
 ```ts
@@ -2184,12 +2184,12 @@ export function assignColors(communityIds: number[]): Map<number, string> {
 }
 ```
 
-- [ ] **Step 4: Run tests to verify pass**
+- [x] **Step 4: Run tests to verify pass**
 
 Run: `npm test -- colors`
 Expected: 3 tests pass.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/graph/colors.ts tests/graph/colors.test.ts
@@ -2204,11 +2204,11 @@ git commit -m "feat(graph): community color palette + size-based assignment"
 - Create: `src/graph/community.ts`, `tests/graph/community.test.ts`
 - Modify: `package.json`
 
-- [ ] **Step 1: Install graphology**
+- [x] **Step 1: Install graphology**
 
 Run: `npm install graphology@^0.25 graphology-communities-louvain@^2`
 
-- [ ] **Step 2: Write failing tests**
+- [x] **Step 2: Write failing tests**
 
 `tests/graph/community.test.ts`:
 ```ts
@@ -2249,12 +2249,12 @@ describe("detectCommunities", () => {
 });
 ```
 
-- [ ] **Step 3: Run to verify failure**
+- [x] **Step 3: Run to verify failure**
 
 Run: `npm test -- community`
 Expected: FAIL.
 
-- [ ] **Step 4: Implement**
+- [x] **Step 4: Implement**
 
 `src/graph/community.ts`:
 ```ts
@@ -2282,12 +2282,12 @@ export function detectCommunities(
 }
 ```
 
-- [ ] **Step 5: Run tests to verify pass**
+- [x] **Step 5: Run tests to verify pass**
 
 Run: `npm test -- community`
 Expected: 3 tests pass.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/graph/community.ts tests/graph/community.test.ts package.json package-lock.json
