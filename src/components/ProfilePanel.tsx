@@ -1,22 +1,50 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useStore } from "@/state/store";
 import { getDb } from "@/db/client";
 import { loadPersonDetail, type PersonDetail } from "@/db/personDetail";
+import {
+  attachTag, createTag, detachTag, listTags, listTagsForPerson, type Tag,
+} from "@/db/tags";
+import { loadAllPersons } from "@/db/persons";
+import { TagCombobox } from "./TagCombobox";
 
 export function ProfilePanel() {
   const selectedId = useStore(s => s.selectedId);
+  const allTags = useStore(s => s.tags);
+  const setStoreTags = useStore(s => s.setTags);
+  const setPersons = useStore(s => s.setPersons);
   const [detail, setDetail] = useState<PersonDetail | null>(null);
+  const [personTags, setPersonTags] = useState<Tag[]>([]);
 
   useEffect(() => {
-    if (selectedId === null) { setDetail(null); return; }
+    if (selectedId === null) { setDetail(null); setPersonTags([]); return; }
     let cancelled = false;
     (async () => {
       const db = await getDb();
-      const d = await loadPersonDetail(db, selectedId);
-      if (!cancelled) setDetail(d);
+      const [d, ts] = await Promise.all([
+        loadPersonDetail(db, selectedId),
+        listTagsForPerson(db, selectedId),
+      ]);
+      if (!cancelled) {
+        setDetail(d);
+        setPersonTags(ts);
+      }
     })();
     return () => { cancelled = true; };
   }, [selectedId]);
+
+  const refreshTags = useCallback(async () => {
+    if (selectedId === null) return;
+    const db = await getDb();
+    const [pTags, all, persons] = await Promise.all([
+      listTagsForPerson(db, selectedId),
+      listTags(db),
+      loadAllPersons(db),
+    ]);
+    setPersonTags(pTags);
+    setStoreTags(all);
+    setPersons(persons);
+  }, [selectedId, setStoreTags, setPersons]);
 
   if (!detail) {
     return (
@@ -57,8 +85,33 @@ export function ProfilePanel() {
           </div>
         )}
       </div>
+
+      <div className="p-4 border-b border-neutral-200">
+        <div className="text-xs font-bold text-neutral-400 mb-1.5">TAGS</div>
+        <TagCombobox
+          personTags={personTags}
+          allTags={allTags}
+          onAdd={async (t) => {
+            const db = await getDb();
+            await attachTag(db, detail.id, t.id);
+            await refreshTags();
+          }}
+          onCreate={async (name, color) => {
+            const db = await getDb();
+            const newId = await createTag(db, name, color);
+            await attachTag(db, detail.id, newId);
+            await refreshTags();
+          }}
+          onRemove={async (t) => {
+            const db = await getDb();
+            await detachTag(db, detail.id, t.id);
+            await refreshTags();
+          }}
+        />
+      </div>
+
       <div className="p-4 text-xs text-neutral-400 italic">
-        (Tags + notes coming next.)
+        (Notes coming next.)
       </div>
     </aside>
   );

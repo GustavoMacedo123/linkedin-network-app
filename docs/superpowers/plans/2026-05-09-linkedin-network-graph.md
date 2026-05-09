@@ -3535,7 +3535,7 @@ git commit -m "feat(profile): person detail loader + header"
 - Create: `src/components/TagCombobox.tsx`, `tests/components/TagCombobox.test.tsx`
 - Modify: `src/components/ProfilePanel.tsx`
 
-- [ ] **Step 1: Write failing test**
+- [x] **Step 1: Write failing test**
 
 `tests/components/TagCombobox.test.tsx`:
 ```tsx
@@ -3598,12 +3598,12 @@ describe("TagCombobox", () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npm test -- TagCombobox`
 Expected: FAIL — module not found.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 `src/components/TagCombobox.tsx`:
 ```tsx
@@ -3692,12 +3692,12 @@ export function TagCombobox({ personTags, allTags, onAdd, onCreate, onRemove }: 
 }
 ```
 
-- [ ] **Step 4: Run tests to verify pass**
+- [x] **Step 4: Run tests to verify pass**
 
 Run: `npm test -- TagCombobox`
 Expected: 4 tests pass.
 
-- [ ] **Step 5: Wire TagCombobox into ProfilePanel**
+- [x] **Step 5: Wire TagCombobox into ProfilePanel**
 
 Replace the "Tags + notes coming next" placeholder in `src/components/ProfilePanel.tsx` with:
 
@@ -3768,7 +3768,7 @@ import { TagCombobox } from "./TagCombobox";
 Run: `npm run tauri dev`
 Expected: Click a person; the Tags row shows current tags as chips; typing a name in the combobox + Enter creates a new tag; the chip appears with a pastel color; the sidebar's TAGS section also picks it up.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add src/components/TagCombobox.tsx tests/components/TagCombobox.test.tsx src/components/ProfilePanel.tsx
