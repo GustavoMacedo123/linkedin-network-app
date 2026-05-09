@@ -19,13 +19,19 @@ export function GraphCanvas() {
   const selectedCompanies = useStore(s => s.selectedCompanies);
   const selectedTagIds = useStore(s => s.selectedTagIds);
   const showArchived = useStore(s => s.showArchived);
+  const noteMatchIds = useStore(s => s.noteMatchIds);
   const fgRef = useRef<ForceGraphMethods>();
 
   const data = useMemo(() => {
     const filterState = { search, companies: selectedCompanies, tagIds: selectedTagIds, showArchived };
 
     const inScope = persons.filter(p => showArchived || !p.archived);
-    const matched = new Set(inScope.filter(p => matchesFilter(p, filterState)).map(p => p.id));
+    const matched = new Set(
+      inScope
+        .filter(p => matchesFilter(p, filterState))
+        .filter(p => noteMatchIds === null || noteMatchIds.has(p.id))
+        .map(p => p.id)
+    );
     const visible = filterMode === "isolate"
       ? inScope.filter(p => matched.has(p.id))
       : inScope;
@@ -52,7 +58,7 @@ export function GraphCanvas() {
     });
 
     return { nodes, links: edges };
-  }, [persons, edgeRule, filterMode, search, selectedCompanies, selectedTagIds, showArchived]);
+  }, [persons, edgeRule, filterMode, search, selectedCompanies, selectedTagIds, showArchived, noteMatchIds]);
 
   useEffect(() => { fgRef.current?.zoomToFit(400, 60); }, [persons.length]);
 

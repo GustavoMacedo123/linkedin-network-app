@@ -43,6 +43,9 @@ export interface GraphState {
   setSavedViews: (v: { id: number; name: string; filter: unknown }[]) => void;
 
   applyFilter: (f: { search?: string; companies?: string[]; tagIds?: number[] }) => void;
+
+  noteMatchIds: Set<number> | null;
+  setNoteMatchIds: (s: Set<number> | null) => void;
 }
 
 export const useStore = create<GraphState>(set => ({
@@ -89,4 +92,7 @@ export const useStore = create<GraphState>(set => ({
     selectedCompanies: new Set(f.companies ?? []),
     selectedTagIds: new Set(f.tagIds ?? []),
   }),
+
+  noteMatchIds: null,
+  setNoteMatchIds: (s) => set({ noteMatchIds: s }),
 }));

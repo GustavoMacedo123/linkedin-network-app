@@ -1,8 +1,9 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useStore } from "@/state/store";
 import { matchesFilter } from "@/state/selectors";
 import { getDb } from "@/db/client";
 import { createSavedView, deleteSavedView, listSavedViews } from "@/db/savedViews";
+import { searchNotes } from "@/search/notes";
 
 export function Sidebar() {
   const persons = useStore(s => s.persons);
@@ -18,6 +19,24 @@ export function Sidebar() {
   const applyFilter = useStore(s => s.applyFilter);
   const showArchived = useStore(s => s.showArchived);
   const setShowArchived = useStore(s => s.setShowArchived);
+  const noteMatchIds = useStore(s => s.noteMatchIds);
+  const setNoteMatchIds = useStore(s => s.setNoteMatchIds);
+
+  useEffect(() => {
+    if (!search.trim().toLowerCase().startsWith("note:")) {
+      setNoteMatchIds(null);
+      return;
+    }
+    const q = search.trim().slice(5).trim();
+    if (!q) { setNoteMatchIds(new Set()); return; }
+    let cancelled = false;
+    (async () => {
+      const db = await getDb();
+      const ids = await searchNotes(db, q);
+      if (!cancelled) setNoteMatchIds(new Set(ids));
+    })();
+    return () => { cancelled = true; };
+  }, [search, setNoteMatchIds]);
 
   async function saveCurrentView() {
     const name = prompt("Name this view:");
@@ -38,13 +57,16 @@ export function Sidebar() {
   }
 
   const visible = useMemo(
-    () => persons.filter(p => matchesFilter(p, {
-      search,
-      companies: selectedCompanies,
-      tagIds: selectedTagIds,
-      showArchived,
-    })),
-    [persons, search, selectedCompanies, selectedTagIds, showArchived]
+    () => persons.filter(p => {
+      if (noteMatchIds !== null && !noteMatchIds.has(p.id)) return false;
+      return matchesFilter(p, {
+        search,
+        companies: selectedCompanies,
+        tagIds: selectedTagIds,
+        showArchived,
+      });
+    }),
+    [persons, search, selectedCompanies, selectedTagIds, showArchived, noteMatchIds]
   );
 
   const companyCounts = useMemo(() => {

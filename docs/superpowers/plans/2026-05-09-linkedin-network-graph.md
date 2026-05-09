@@ -3914,7 +3914,7 @@ git commit -m "feat(profile): markdown notes editor with 500ms debounced autosav
 - Create: `src/search/notes.ts`, `tests/search/notes.test.ts`
 - Modify: `src/components/Sidebar.tsx`, `src/state/store.ts`
 
-- [ ] **Step 1: Write failing test**
+- [x] **Step 1: Write failing test**
 
 `tests/search/notes.test.ts`:
 ```ts
@@ -3946,12 +3946,12 @@ describe("searchNotes (FTS5)", () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npm test -- "search/notes"`
 Expected: FAIL.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 `src/search/notes.ts`:
 ```ts
@@ -3970,12 +3970,12 @@ export async function searchNotes(db: Db, query: string): Promise<number[]> {
 }
 ```
 
-- [ ] **Step 4: Run tests to verify pass**
+- [x] **Step 4: Run tests to verify pass**
 
 Run: `npm test -- "search/notes"`
 Expected: 2 tests pass.
 
-- [ ] **Step 5: Wire search prefix in Sidebar**
+- [x] **Step 5: Wire search prefix in Sidebar**
 
 In Sidebar.tsx, add a `noteMatchIds` Set state that fires when the search starts with `note:`:
 
@@ -4048,7 +4048,7 @@ Add `noteMatchIds` to the useMemo deps.
 Run: `npm run tauri dev`
 Expected: Add a note containing "SXSW" to a person, then type `note: SXSW` in the search box — only that person stays unfaded.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add src/search/notes.ts tests/search/notes.test.ts src/components/Sidebar.tsx src/components/GraphCanvas.tsx src/state/store.ts
