@@ -5,6 +5,7 @@ import { computeSyntheticEdges } from "@/graph/synthEdges";
 import { detectCommunities } from "@/graph/community";
 import { computeCentrality } from "@/graph/centrality";
 import { assignColors } from "@/graph/colors";
+import { convexHull, expandHull } from "@/graph/clusterRegions";
 
 const YOU_ID = 0;
 
@@ -67,10 +68,29 @@ export function GraphCanvas() {
         backgroundColor="#fafafa"
         linkColor={() => "rgba(100,116,139,0.4)"}
         linkWidth={0.8}
+        onRenderFramePre={(ctx) => {
+          const groups = new Map<string, { x: number; y: number }[]>();
+          for (const n of (data.nodes as any[])) {
+            if (n.isYou || n.color === "#cbd5e1") continue;
+            if (typeof n.x !== "number" || typeof n.y !== "number") continue;
+            const arr = groups.get(n.color);
+            if (arr) arr.push({ x: n.x, y: n.y });
+            else groups.set(n.color, [{ x: n.x, y: n.y }]);
+          }
+          for (const [color, pts] of groups) {
+            if (pts.length < 3) continue;
+            const hull = expandHull(convexHull(pts), 14);
+            ctx.beginPath();
+            ctx.moveTo(hull[0].x, hull[0].y);
+            for (let i = 1; i < hull.length; i++) ctx.lineTo(hull[i].x, hull[i].y);
+            ctx.closePath();
+            ctx.fillStyle = color + "26";
+            ctx.fill();
+          }
+        }}
         nodeCanvasObject={(node: any, ctx, globalScale) => {
-          const r = node.size;
           ctx.beginPath();
-          ctx.arc(node.x ?? 0, node.y ?? 0, r, 0, 2 * Math.PI);
+          ctx.arc(node.x ?? 0, node.y ?? 0, node.size, 0, 2 * Math.PI);
           ctx.fillStyle = node.color;
           ctx.fill();
           ctx.strokeStyle = "#334155";

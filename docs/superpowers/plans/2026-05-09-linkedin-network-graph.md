@@ -2511,7 +2511,7 @@ git commit -m "feat(graph): color nodes by Louvain community, size by centrality
 - Create: `src/graph/clusterRegions.ts`, `tests/graph/clusterRegions.test.ts`
 - Modify: `src/components/GraphCanvas.tsx`
 
-- [ ] **Step 1: Write failing test for convex hull**
+- [x] **Step 1: Write failing test for convex hull**
 
 `tests/graph/clusterRegions.test.ts`:
 ```ts
@@ -2543,12 +2543,12 @@ describe("convexHull", () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npm test -- clusterRegions`
 Expected: FAIL.
 
-- [ ] **Step 3: Implement convex hull (Andrew's monotone chain)**
+- [x] **Step 3: Implement convex hull (Andrew's monotone chain)**
 
 `src/graph/clusterRegions.ts`:
 ```ts
@@ -2596,12 +2596,12 @@ export function expandHull(hull: Point[], padding: number): Point[] {
 }
 ```
 
-- [ ] **Step 4: Run tests to verify pass**
+- [x] **Step 4: Run tests to verify pass**
 
 Run: `npm test -- clusterRegions`
 Expected: 3 tests pass.
 
-- [ ] **Step 5: Add cluster-region painting to GraphCanvas**
+- [x] **Step 5: Add cluster-region painting to GraphCanvas**
 
 In `src/components/GraphCanvas.tsx`, add an `onRenderFramePre` callback to paint hulls under nodes. Replace the `<ForceGraph2D ... />` element with this version (keep the rest of the file the same):
 
@@ -2657,7 +2657,7 @@ Add the import at the top: `import { convexHull, expandHull } from "@/graph/clus
 Run: `npm run tauri dev`
 Expected: Soft colored regions visible behind groups of same-color nodes.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add src/graph/clusterRegions.ts tests/graph/clusterRegions.test.ts src/components/GraphCanvas.tsx
