@@ -1,20 +1,22 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useStore } from "@/state/store";
 import { getDb } from "@/db/client";
-import { loadPersonDetail, type PersonDetail } from "@/db/personDetail";
+import { loadPersonDetail, type PersonDetail, updateNotes } from "@/db/personDetail";
 import {
   attachTag, createTag, detachTag, listTags, listTagsForPerson, type Tag,
 } from "@/db/tags";
 import { loadAllPersons } from "@/db/persons";
 import { TagCombobox } from "./TagCombobox";
 import { NotesEditor } from "./NotesEditor";
-import { updateNotes } from "@/db/personDetail";
 
 export function ProfilePanel() {
   const selectedId = useStore(s => s.selectedId);
   const allTags = useStore(s => s.tags);
   const setStoreTags = useStore(s => s.setTags);
+  const persons = useStore(s => s.persons);
   const setPersons = useStore(s => s.setPersons);
+  const edgeRule = useStore(s => s.edgeRule);
+  const setSelected = useStore(s => s.setSelected);
   const [detail, setDetail] = useState<PersonDetail | null>(null);
   const [personTags, setPersonTags] = useState<Tag[]>([]);
 
@@ -47,6 +49,23 @@ export function ProfilePanel() {
     setStoreTags(all);
     setPersons(persons);
   }, [selectedId, setStoreTags, setPersons]);
+
+  const neighbors = useMemo(() => {
+    if (!detail) return [];
+    const me = persons.find(p => p.id === detail.id);
+    if (!me) return [];
+    return persons.filter(other => {
+      if (other.id === me.id || other.archived) return false;
+      if (edgeRule === "company") return !!me.company && other.company === me.company;
+      if (edgeRule === "tag")     return me.tagIds.some(t => other.tagIds.includes(t));
+      if (edgeRule === "title-keyword") {
+        const tokenize = (s: string) => s.toLowerCase().split(/\W+/).filter(w => w.length > 2);
+        const myTokens = new Set(tokenize(me.title ?? ""));
+        return tokenize(other.title ?? "").some(t => myTokens.has(t));
+      }
+      return false;
+    });
+  }, [persons, detail, edgeRule]);
 
   if (!detail) {
     return (
@@ -122,6 +141,32 @@ export function ProfilePanel() {
             await updateNotes(db, detail.id, notes);
           }}
         />
+      </div>
+
+      <div className="p-4 border-t border-neutral-200">
+        <div className="text-xs font-bold text-neutral-400 mb-1.5">
+          NEIGHBORS IN GRAPH ({edgeRule})
+        </div>
+        {neighbors.length === 0 ? (
+          <div className="text-xs italic text-neutral-400">No neighbors under current edge rule.</div>
+        ) : (
+          <ul className="text-sm space-y-0.5 max-h-48 overflow-y-auto">
+            {neighbors.slice(0, 30).map(n => (
+              <li key={n.id}>
+                <button
+                  onClick={() => setSelected(n.id)}
+                  className="w-full text-left px-1.5 py-0.5 rounded hover:bg-neutral-50 truncate"
+                >
+                  <span className="text-neutral-900">{n.first_name} {n.last_name}</span>
+                  {n.company && <span className="text-neutral-400 text-xs ml-1">· {n.company}</span>}
+                </button>
+              </li>
+            ))}
+            {neighbors.length > 30 && (
+              <li className="text-xs italic text-neutral-400 px-1.5">+ {neighbors.length - 30} more</li>
+            )}
+          </ul>
+        )}
       </div>
     </aside>
   );

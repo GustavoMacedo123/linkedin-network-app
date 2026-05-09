@@ -4062,7 +4062,7 @@ git commit -m "feat(search): 'note:' prefix triggers FTS5 search across notes"
 **Files:**
 - Modify: `src/components/ProfilePanel.tsx`
 
-- [ ] **Step 1: Compute neighbors via current edge rule**
+- [x] **Step 1: Compute neighbors via current edge rule**
 
 Add this block to ProfilePanel.tsx, after the NOTES block:
 
@@ -4122,7 +4122,7 @@ Add this block to ProfilePanel.tsx, after the NOTES block:
 Run: `npm run tauri dev`
 Expected: Selecting a person shows a list of others sharing the same company (or tag/keyword if you change `edgeRule` later).
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/components/ProfilePanel.tsx
