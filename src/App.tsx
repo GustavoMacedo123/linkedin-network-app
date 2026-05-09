@@ -1,3 +1,7 @@
 export default function App() {
-  return <div>Network — coming soon</div>;
+  return (
+    <div className="h-full flex items-center justify-center text-neutral-500">
+      Network — coming soon
+    </div>
+  );
 }
