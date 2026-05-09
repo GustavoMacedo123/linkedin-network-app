@@ -912,7 +912,7 @@ LinkedIn's CSV starts with a 3-line preamble before the header row. We must loca
 **Files:**
 - Create: `src/csv/parse.ts` (header detection helper), `tests/csv/parse.test.ts`
 
-- [ ] **Step 1: Write failing test**
+- [x] **Step 1: Write failing test**
 
 `tests/csv/parse.test.ts`:
 ```ts
@@ -944,12 +944,12 @@ describe("findHeaderLine", () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npm test -- parse`
 Expected: FAIL — module not found.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 `src/csv/parse.ts`:
 ```ts
@@ -967,12 +967,12 @@ export function findHeaderLine(csv: string): number {
 }
 ```
 
-- [ ] **Step 4: Run tests to verify pass**
+- [x] **Step 4: Run tests to verify pass**
 
 Run: `npm test -- parse`
 Expected: 3 tests pass.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/csv/parse.ts tests/csv/parse.test.ts
