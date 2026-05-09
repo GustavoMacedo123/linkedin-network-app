@@ -3023,7 +3023,7 @@ git commit -m "feat(graph): filter-aware rendering with fade vs isolate modes"
 - Create: `src/db/tags.ts`, `tests/db/tags.test.ts`
 - Modify: `src/components/Sidebar.tsx`, `src/state/store.ts`, `src/App.tsx`
 
-- [ ] **Step 1: Write failing tests for tag CRUD**
+- [x] **Step 1: Write failing tests for tag CRUD**
 
 `tests/db/tags.test.ts`:
 ```ts
@@ -3068,12 +3068,12 @@ describe("tags db", () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npm test -- "db/tags"`
 Expected: FAIL.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 `src/db/tags.ts`:
 ```ts
@@ -3126,12 +3126,12 @@ export async function recolorTag(db: Db, id: number, color: string): Promise<voi
 }
 ```
 
-- [ ] **Step 4: Run tests to verify pass**
+- [x] **Step 4: Run tests to verify pass**
 
 Run: `npm test -- "db/tags"`
 Expected: 3 tests pass.
 
-- [ ] **Step 5: Add tags slice to store + load tags on startup**
+- [x] **Step 5: Add tags slice to store + load tags on startup**
 
 In `src/state/store.ts`, add to the GraphState interface and store body:
 ```ts
@@ -3155,7 +3155,7 @@ const refresh = useCallback(async (d: Db) => {
 }, [setPersons]);
 ```
 
-- [ ] **Step 6: Add Tags section to Sidebar**
+- [x] **Step 6: Add Tags section to Sidebar**
 
 In `src/components/Sidebar.tsx`, add this block above the "Show archived" checkbox:
 
@@ -3198,7 +3198,7 @@ In `src/components/Sidebar.tsx`, add this block above the "Show archived" checkb
 Run: `npm run tauri dev`
 Expected: Tags section shows "Add tags from a person's profile." (no tags yet — they'll be addable from Phase 6).
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add src/db/tags.ts tests/db/tags.test.ts src/state/store.ts src/components/Sidebar.tsx src/App.tsx

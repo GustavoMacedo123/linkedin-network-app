@@ -3,6 +3,7 @@ import { Layout } from "./components/Layout";
 import { ImportDialog } from "./components/ImportDialog";
 import { getDb, type Db } from "./db/client";
 import { loadAllPersons } from "./db/persons";
+import { listTags } from "./db/tags";
 import { useStore } from "./state/store";
 
 export default function App() {
@@ -10,12 +11,14 @@ export default function App() {
   const [personCount, setPersonCount] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const setPersons = useStore(s => s.setPersons);
+  const setTags = useStore(s => s.setTags);
 
   const refresh = useCallback(async (d: Db) => {
-    const persons = await loadAllPersons(d);
+    const [persons, tags] = await Promise.all([loadAllPersons(d), listTags(d)]);
     setPersons(persons);
+    setTags(tags);
     setPersonCount(persons.filter(p => !p.archived).length);
-  }, [setPersons]);
+  }, [setPersons, setTags]);
 
   useEffect(() => {
     getDb().then(async d => {

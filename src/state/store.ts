@@ -35,6 +35,9 @@ export interface GraphState {
 
   showArchived: boolean;
   setShowArchived: (b: boolean) => void;
+
+  tags: { id: number; name: string; color: string }[];
+  setTags: (t: { id: number; name: string; color: string }[]) => void;
 }
 
 export const useStore = create<GraphState>(set => ({
@@ -69,4 +72,7 @@ export const useStore = create<GraphState>(set => ({
 
   showArchived: false,
   setShowArchived: (b) => set({ showArchived: b }),
+
+  tags: [],
+  setTags: (t) => set({ tags: t }),
 }));

@@ -9,6 +9,8 @@ export function Sidebar() {
   const selectedCompanies = useStore(s => s.selectedCompanies);
   const toggleCompany = useStore(s => s.toggleCompany);
   const selectedTagIds = useStore(s => s.selectedTagIds);
+  const toggleTagId = useStore(s => s.toggleTagId);
+  const tags = useStore(s => s.tags);
   const showArchived = useStore(s => s.showArchived);
   const setShowArchived = useStore(s => s.setShowArchived);
 
@@ -66,6 +68,29 @@ export function Sidebar() {
             <li className="text-xs italic text-neutral-400 px-1">No companies in current view</li>
           )}
         </ul>
+      </div>
+
+      <div>
+        <div className="text-xs font-bold text-neutral-400 mb-1.5">TAGS</div>
+        {tags.length === 0 ? (
+          <div className="text-xs italic text-neutral-400">Add tags from a person's profile.</div>
+        ) : (
+          <div className="flex flex-wrap gap-1">
+            {tags.map(t => {
+              const active = selectedTagIds.has(t.id);
+              return (
+                <button
+                  key={t.id}
+                  onClick={() => toggleTagId(t.id)}
+                  className={`px-2 py-0.5 text-xs rounded-full border ${active ? "ring-2 ring-neutral-700" : ""}`}
+                  style={{ backgroundColor: t.color, borderColor: t.color }}
+                >
+                  {t.name}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       <div>
