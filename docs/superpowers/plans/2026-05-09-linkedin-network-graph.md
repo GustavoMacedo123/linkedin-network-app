@@ -1324,7 +1324,7 @@ git commit -m "feat(csv): mergeConnections with upsert/archive and notes preserv
 - Create: `src-tauri/src/commands.rs`
 - Modify: `src-tauri/src/main.rs`, `src-tauri/Cargo.toml`
 
-- [ ] **Step 1: Add Rust deps for fs / path**
+- [x] **Step 1: Add Rust deps for fs / path**
 
 In `src-tauri/Cargo.toml`, add under `[dependencies]`:
 ```toml
@@ -1332,7 +1332,7 @@ chrono = "0.4"
 ```
 (`tauri::api::path` provides app data dir resolution out of the box; no extra dep.)
 
-- [ ] **Step 2: Create src-tauri/src/commands.rs**
+- [x] **Step 2: Create src-tauri/src/commands.rs**
 
 ```rust
 use std::fs;
@@ -1406,7 +1406,7 @@ pub fn prune_old_snapshots(app: tauri::AppHandle, max_age_days: u64) -> Result<u
 }
 ```
 
-- [ ] **Step 3: Wire commands in main.rs**
+- [x] **Step 3: Wire commands in main.rs**
 
 Replace `src-tauri/src/main.rs`:
 ```rust
@@ -1444,12 +1444,12 @@ fn main() {
 
 Add `tauri-plugin-dialog = "2"` to `[dependencies]` in `src-tauri/Cargo.toml`.
 
-- [ ] **Step 4: Verify build**
+- [x] **Step 4: Verify build**
 
 Run: `npm run tauri build -- --debug` (or `npm run tauri dev` and verify no panic)
 Expected: Build completes; window opens; no startup errors.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src-tauri/
