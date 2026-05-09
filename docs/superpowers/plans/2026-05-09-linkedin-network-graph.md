@@ -113,7 +113,7 @@ Goal: A Tauri app that opens, shows a three-pane layout with placeholders, and h
 **Files:**
 - Create: `package.json`, `tsconfig.json`, `tsconfig.node.json`, `vite.config.ts`, `index.html`, `src/main.tsx`, `src/App.tsx`, `src/index.css`
 
-- [ ] **Step 1: Create package.json**
+- [x] **Step 1: Create package.json**
 
 ```json
 {
@@ -143,7 +143,7 @@ Goal: A Tauri app that opens, shows a three-pane layout with placeholders, and h
 }
 ```
 
-- [ ] **Step 2: Create tsconfig.json**
+- [x] **Step 2: Create tsconfig.json**
 
 ```json
 {
@@ -170,7 +170,7 @@ Goal: A Tauri app that opens, shows a three-pane layout with placeholders, and h
 }
 ```
 
-- [ ] **Step 3: Create tsconfig.node.json**
+- [x] **Step 3: Create tsconfig.node.json**
 
 ```json
 {
@@ -186,7 +186,7 @@ Goal: A Tauri app that opens, shows a three-pane layout with placeholders, and h
 }
 ```
 
-- [ ] **Step 4: Create vite.config.ts**
+- [x] **Step 4: Create vite.config.ts**
 
 ```ts
 import { defineConfig } from "vite";
@@ -201,7 +201,7 @@ export default defineConfig({
 });
 ```
 
-- [ ] **Step 5: Create index.html**
+- [x] **Step 5: Create index.html**
 
 ```html
 <!DOCTYPE html>
@@ -218,7 +218,7 @@ export default defineConfig({
 </html>
 ```
 
-- [ ] **Step 6: Create src/main.tsx + App.tsx + index.css**
+- [x] **Step 6: Create src/main.tsx + App.tsx + index.css**
 
 `src/main.tsx`:
 ```tsx
@@ -247,13 +247,13 @@ html, body, #root { height: 100%; margin: 0; }
 body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
 ```
 
-- [ ] **Step 7: Install and verify dev server**
+- [x] **Step 7: Install and verify dev server**
 
 Run: `npm install && npm run dev`
 Expected: Vite dev server starts on `http://localhost:1420`; opening it shows "Network — coming soon".
 Press Ctrl+C to stop.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add package.json package-lock.json tsconfig.json tsconfig.node.json vite.config.ts index.html src/
@@ -268,11 +268,11 @@ git commit -m "chore: scaffold Vite + React + TypeScript project"
 - Create: `tailwind.config.js`, `postcss.config.js`
 - Modify: `src/index.css`, `src/App.tsx`, `package.json` (devDependencies)
 
-- [ ] **Step 1: Install Tailwind**
+- [x] **Step 1: Install Tailwind**
 
 Run: `npm install -D tailwindcss@^3.4 postcss@^8.4 autoprefixer@^10.4`
 
-- [ ] **Step 2: Create tailwind.config.js**
+- [x] **Step 2: Create tailwind.config.js**
 
 ```js
 /** @type {import('tailwindcss').Config} */
@@ -295,7 +295,7 @@ export default {
 };
 ```
 
-- [ ] **Step 3: Create postcss.config.js**
+- [x] **Step 3: Create postcss.config.js**
 
 ```js
 export default {
@@ -303,7 +303,7 @@ export default {
 };
 ```
 
-- [ ] **Step 4: Update src/index.css**
+- [x] **Step 4: Update src/index.css**
 
 ```css
 @tailwind base;
@@ -314,7 +314,7 @@ html, body, #root { height: 100%; margin: 0; }
 body { @apply font-sans bg-neutral-50 text-neutral-900; }
 ```
 
-- [ ] **Step 5: Update src/App.tsx to use Tailwind classes**
+- [x] **Step 5: Update src/App.tsx to use Tailwind classes**
 
 ```tsx
 export default function App() {
@@ -326,12 +326,12 @@ export default function App() {
 }
 ```
 
-- [ ] **Step 6: Verify**
+- [x] **Step 6: Verify**
 
 Run: `npm run dev`
 Expected: Page renders with light gray background and centered text. Press Ctrl+C.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add tailwind.config.js postcss.config.js src/index.css src/App.tsx package.json package-lock.json
@@ -345,7 +345,7 @@ git commit -m "chore: add Tailwind CSS with community color palette"
 **Files:**
 - Create: `src-tauri/` (via Tauri CLI), then customize `src-tauri/tauri.conf.json`, `src-tauri/src/main.rs`, `src-tauri/Cargo.toml`
 
-- [ ] **Step 1: Install Tauri CLI as dev dependency and run init**
+- [x] **Step 1: Install Tauri CLI as dev dependency and run init**
 
 Run:
 ```
@@ -354,7 +354,7 @@ npx tauri init --ci --app-name "linkedin-network-app" --window-title "Network" -
 ```
 Expected: Creates `src-tauri/` with Cargo project. May prompt for confirmations — `--ci` should skip them.
 
-- [ ] **Step 2: Edit src-tauri/tauri.conf.json — set identifier, window size**
+- [x] **Step 2: Edit src-tauri/tauri.conf.json — set identifier, window size**
 
 Replace `identifier` with `com.you.linkedin-network`. Set the main window:
 ```json
@@ -386,12 +386,12 @@ Replace `identifier` with `com.you.linkedin-network`. Set the main window:
 }
 ```
 
-- [ ] **Step 3: Verify Tauri dev build runs**
+- [x] **Step 3: Verify Tauri dev build runs**
 
 Run: `npm run tauri dev`
 Expected: Tauri compiles Rust (first run takes 1-3 minutes); a desktop window titled "Network" opens showing the React app. Close window or Ctrl+C.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add src-tauri/ package.json package-lock.json
@@ -407,14 +407,14 @@ git commit -m "chore: initialize Tauri 2 backend"
 - Create: `src-tauri/migrations/0001_initial.sql`, `src/db/client.ts`, `src/db/migrate.ts`
 - Modify: `package.json`
 
-- [ ] **Step 1: Add Rust dependency**
+- [x] **Step 1: Add Rust dependency**
 
 Edit `src-tauri/Cargo.toml`, add under `[dependencies]`:
 ```toml
 tauri-plugin-sql = { version = "2", features = ["sqlite"] }
 ```
 
-- [ ] **Step 2: Register plugin in src-tauri/src/main.rs (or lib.rs)**
+- [x] **Step 2: Register plugin in src-tauri/src/main.rs (or lib.rs)**
 
 Replace the contents of `src-tauri/src/main.rs` (preserve any auto-generated `#![cfg_attr(...)]` line at the top):
 ```rust
@@ -441,7 +441,7 @@ fn main() {
 }
 ```
 
-- [ ] **Step 3: Create src-tauri/migrations/0001_initial.sql**
+- [x] **Step 3: Create src-tauri/migrations/0001_initial.sql**
 
 (The full schema verbatim from the spec, Section 6. See spec for source of truth.)
 ```sql
@@ -523,11 +523,11 @@ CREATE TRIGGER person_au AFTER UPDATE ON person BEGIN
 END;
 ```
 
-- [ ] **Step 4: Install JS plugin**
+- [x] **Step 4: Install JS plugin**
 
 Run: `npm install @tauri-apps/plugin-sql@^2`
 
-- [ ] **Step 5: Create src/db/client.ts (DB interface + Tauri impl)**
+- [x] **Step 5: Create src/db/client.ts (DB interface + Tauri impl)**
 
 ```ts
 import Database from "@tauri-apps/plugin-sql";
@@ -554,7 +554,7 @@ export async function getDb(): Promise<Db> {
 }
 ```
 
-- [ ] **Step 6: Smoke-test from App.tsx that DB is reachable**
+- [x] **Step 6: Smoke-test from App.tsx that DB is reachable**
 
 Replace `src/App.tsx`:
 ```tsx
@@ -582,12 +582,12 @@ export default function App() {
 }
 ```
 
-- [ ] **Step 7: Verify**
+- [x] **Step 7: Verify**
 
 Run: `npm run tauri dev`
 Expected: Window shows "DB ready · 0 persons" — confirms migration ran and SELECT works.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add src-tauri/Cargo.toml src-tauri/Cargo.lock src-tauri/src/main.rs src-tauri/migrations/ src/db/ src/App.tsx package.json package-lock.json
@@ -602,7 +602,7 @@ git commit -m "feat(db): wire tauri-plugin-sql with full schema migration"
 - Create: `src/components/Layout.tsx`, `src/components/Sidebar.tsx`, `src/components/GraphCanvas.tsx`, `src/components/ProfilePanel.tsx`
 - Modify: `src/App.tsx`
 
-- [ ] **Step 1: Create Layout.tsx**
+- [x] **Step 1: Create Layout.tsx**
 
 ```tsx
 import { Sidebar } from "./Sidebar";
@@ -620,7 +620,7 @@ export function Layout() {
 }
 ```
 
-- [ ] **Step 2: Create placeholder Sidebar.tsx, GraphCanvas.tsx, ProfilePanel.tsx**
+- [x] **Step 2: Create placeholder Sidebar.tsx, GraphCanvas.tsx, ProfilePanel.tsx**
 
 `src/components/Sidebar.tsx`:
 ```tsx
@@ -664,7 +664,7 @@ export function ProfilePanel() {
 }
 ```
 
-- [ ] **Step 3: Update App.tsx to render Layout**
+- [x] **Step 3: Update App.tsx to render Layout**
 
 ```tsx
 import { useEffect, useState } from "react";
@@ -688,12 +688,12 @@ export default function App() {
 }
 ```
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 Run: `npm run tauri dev`
 Expected: A three-column layout — sidebar on left with search box and "No data yet", center area with "Graph will render here", right panel with "Click a node to see details".
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/components/ src/App.tsx
@@ -708,14 +708,14 @@ git commit -m "feat(ui): three-pane layout with placeholders"
 - Create: `vitest.config.ts`, `tests/setup.ts`, `tests/helpers/testDb.ts`, `tests/components/Layout.test.tsx`
 - Modify: `package.json`
 
-- [ ] **Step 1: Install test dependencies**
+- [x] **Step 1: Install test dependencies**
 
 Run:
 ```
 npm install -D vitest@^2 @testing-library/react@^16 @testing-library/jest-dom@^6 @testing-library/user-event@^14 jsdom@^24 better-sqlite3@^11 @types/better-sqlite3@^7
 ```
 
-- [ ] **Step 2: Create vitest.config.ts**
+- [x] **Step 2: Create vitest.config.ts**
 
 ```ts
 import { defineConfig } from "vitest/config";
@@ -733,13 +733,13 @@ export default defineConfig({
 });
 ```
 
-- [ ] **Step 3: Create tests/setup.ts**
+- [x] **Step 3: Create tests/setup.ts**
 
 ```ts
 import "@testing-library/jest-dom/vitest";
 ```
 
-- [ ] **Step 4: Create tests/helpers/testDb.ts (in-memory SQLite matching schema)**
+- [x] **Step 4: Create tests/helpers/testDb.ts (in-memory SQLite matching schema)**
 
 ```ts
 import BetterSqlite3 from "better-sqlite3";
@@ -773,7 +773,7 @@ export function makeTestDb(): Db {
 }
 ```
 
-- [ ] **Step 5: Write a smoke test that the schema loads**
+- [x] **Step 5: Write a smoke test that the schema loads**
 
 `tests/db/schema.test.ts`:
 ```ts
@@ -809,12 +809,12 @@ describe("schema", () => {
 });
 ```
 
-- [ ] **Step 6: Run tests**
+- [x] **Step 6: Run tests**
 
 Run: `npm test`
 Expected: 2 tests pass.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add vitest.config.ts tests/ package.json package-lock.json
@@ -836,7 +836,7 @@ Goal: User can pick a `Connections.csv` and import it. New persons are inserted,
 **Files:**
 - Create: `src/csv/dateFormat.ts`, `tests/csv/dateFormat.test.ts`
 
-- [ ] **Step 1: Write failing tests**
+- [x] **Step 1: Write failing tests**
 
 `tests/csv/dateFormat.test.ts`:
 ```ts
@@ -866,12 +866,12 @@ describe("parseLinkedInDate", () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npm test -- dateFormat`
 Expected: FAIL — module not found.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 `src/csv/dateFormat.ts`:
 ```ts
@@ -891,12 +891,12 @@ export function parseLinkedInDate(input: string): string | null {
 }
 ```
 
-- [ ] **Step 4: Run tests to verify pass**
+- [x] **Step 4: Run tests to verify pass**
 
 Run: `npm test -- dateFormat`
 Expected: 4 tests pass.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/csv/dateFormat.ts tests/csv/dateFormat.test.ts
