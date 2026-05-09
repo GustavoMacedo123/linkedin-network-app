@@ -15,7 +15,7 @@ let sqlite3: Awaited<ReturnType<typeof sqlite3InitModule>> | null = null;
 
 async function getSqlite() {
   if (sqlite3) return sqlite3;
-  sqlite3 = await sqlite3InitModule({ print: () => {}, printErr: () => {} });
+  sqlite3 = await sqlite3InitModule();
   // Silence the SQL TRACE output the module emits by default.
   const cfg = (sqlite3 as unknown as { config?: Record<string, unknown> }).config;
   if (cfg) { cfg.log = () => {}; cfg.warn = () => {}; cfg.error = () => {}; cfg.debug = () => {}; }

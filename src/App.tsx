@@ -1,19 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Layout } from "./components/Layout";
-import { getDb } from "./db/client";
+import { ImportDialog } from "./components/ImportDialog";
+import { getDb, type Db } from "./db/client";
 
 export default function App() {
-  const [ready, setReady] = useState(false);
+  const [db, setDb] = useState<Db | null>(null);
+  const [personCount, setPersonCount] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     getDb()
-      .then(db => db.select("SELECT 1"))
-      .then(() => setReady(true))
+      .then(async d => {
+        setDb(d);
+        const rows = await d.select<{ n: number }>("SELECT count(*) AS n FROM person");
+        setPersonCount(rows[0].n);
+      })
       .catch(e => setError(String(e)));
   }, []);
 
+  const handleImportComplete = useCallback(async () => {
+    if (!db) return;
+    const rows = await db.select<{ n: number }>("SELECT count(*) AS n FROM person");
+    setPersonCount(rows[0].n);
+  }, [db]);
+
   if (error) return <div className="p-8 text-red-600">DB error: {error}</div>;
-  if (!ready) return <div className="p-8 text-neutral-500">Loading…</div>;
+  if (!db || personCount === null) return <div className="p-8 text-neutral-500">Loading…</div>;
+
+  if (personCount === 0) {
+    return (
+      <div className="h-full flex items-center justify-center bg-neutral-50">
+        <ImportDialog db={db} onComplete={handleImportComplete} />
+      </div>
+    );
+  }
+
   return <Layout />;
 }

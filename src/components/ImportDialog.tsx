@@ -19,9 +19,8 @@ export function ImportDialog({ db, onComplete }: Props) {
     setError(null);
     setBusy(true);
     try {
-      const file = await open({ multiple: false, filters: [{ name: "CSV", extensions: ["csv"] }] });
-      if (!file) { setBusy(false); return; }
-      const path = typeof file === "string" ? file : file.path;
+      const path = await open({ multiple: false, filters: [{ name: "CSV", extensions: ["csv"] }] });
+      if (!path) { setBusy(false); return; }
 
       const csv = await readTextFile(path);
       const parsed = parseConnectionsCsv(csv);

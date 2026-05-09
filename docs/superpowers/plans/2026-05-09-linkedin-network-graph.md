@@ -1616,7 +1616,7 @@ git commit -m "feat(import): ImportDialog with file picker, parse, merge, snapsh
 **Files:**
 - Modify: `src/App.tsx`
 
-- [ ] **Step 1: Add a query for person count and conditionally render ImportDialog**
+- [x] **Step 1: Add a query for person count and conditionally render ImportDialog**
 
 Replace `src/App.tsx`:
 ```tsx
@@ -1668,7 +1668,7 @@ Expected: With an empty DB, the import dialog renders centered.
 
 (Optional manual test: pick a real `Connections.csv`. After import, the layout should appear. Note: graph still shows the placeholder until Phase 3.)
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/App.tsx
