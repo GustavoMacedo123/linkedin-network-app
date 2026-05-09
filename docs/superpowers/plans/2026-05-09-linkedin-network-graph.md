@@ -1690,7 +1690,7 @@ Goal: Render the imported persons as a force-directed graph with `react-force-gr
 **Files:**
 - Create: `src/graph/synthEdges.ts`, `tests/graph/synthEdges.test.ts`
 
-- [ ] **Step 1: Write failing tests**
+- [x] **Step 1: Write failing tests**
 
 `tests/graph/synthEdges.test.ts`:
 ```ts
@@ -1742,12 +1742,12 @@ describe("computeSyntheticEdges (rule = company)", () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npm test -- synthEdges`
 Expected: FAIL — module not found.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 `src/graph/synthEdges.ts`:
 ```ts
@@ -1824,12 +1824,12 @@ function tokenize(s: string): string[] {
 }
 ```
 
-- [ ] **Step 4: Run tests to verify pass**
+- [x] **Step 4: Run tests to verify pass**
 
 Run: `npm test -- synthEdges`
 Expected: 6 tests pass.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/graph/synthEdges.ts tests/graph/synthEdges.test.ts
