@@ -4618,7 +4618,7 @@ git commit -m "feat(ux): surface parse warnings in import toast; friendly DB err
 **Files:**
 - Create: `README.md`
 
-- [ ] **Step 1: Write README**
+- [x] **Step 1: Write README**
 
 `README.md`:
 ```markdown
@@ -4669,7 +4669,7 @@ Snapshots older than 7 days auto-prune at startup.
 - Plan: [docs/superpowers/plans/2026-05-09-linkedin-network-graph.md](docs/superpowers/plans/2026-05-09-linkedin-network-graph.md)
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add README.md
