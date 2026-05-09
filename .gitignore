@@ -1,0 +1,17 @@
+# Brainstorming session artifacts (visual companion mockups, server state)
+.superpowers/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Future build artifacts (Tauri / Node — populated when implementation starts)
+node_modules/
+dist/
+build/
+src-tauri/target/
+*.log
