@@ -60,7 +60,10 @@ export function GraphCanvas() {
     return { nodes, links: edges };
   }, [persons, edgeRule, filterMode, search, selectedCompanies, selectedTagIds, showArchived, noteMatchIds]);
 
-  useEffect(() => { fgRef.current?.zoomToFit(400, 60); }, [persons.length]);
+  useEffect(() => {
+    const t = setTimeout(() => fgRef.current?.zoomToFit(400, 60), 800);
+    return () => clearTimeout(t);
+  }, [persons.length]);
 
   return (
     <main className="bg-neutral-50 relative overflow-hidden">
@@ -107,6 +110,7 @@ export function GraphCanvas() {
           if (typeof node.id === "number" && node.id !== YOU_ID) setSelected(node.id);
         }}
         cooldownTicks={150}
+        onEngineStop={() => fgRef.current?.zoomToFit(400, 60)}
       />
     </main>
   );
