@@ -2679,7 +2679,7 @@ Goal: Sidebar search, company filter chips, tag filter chips, saved views. Filte
 **Files:**
 - Create: `src/state/selectors.ts`, `tests/state/selectors.test.ts`
 
-- [ ] **Step 1: Write failing tests**
+- [x] **Step 1: Write failing tests**
 
 `tests/state/selectors.test.ts`:
 ```ts
@@ -2726,12 +2726,12 @@ describe("matchesFilter", () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npm test -- selectors`
 Expected: FAIL.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 `src/state/selectors.ts`:
 ```ts
@@ -2766,12 +2766,12 @@ export function matchesFilter(p: PersonNode, f: FilterState): boolean {
 }
 ```
 
-- [ ] **Step 4: Run tests to verify pass**
+- [x] **Step 4: Run tests to verify pass**
 
 Run: `npm test -- selectors`
 Expected: All tests pass.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/state/selectors.ts tests/state/selectors.test.ts
