@@ -2785,7 +2785,7 @@ git commit -m "feat(state): matchesFilter selector for company/tag/search/archiv
 **Files:**
 - Modify: `src/components/Sidebar.tsx`
 
-- [ ] **Step 1: Replace Sidebar.tsx with full implementation**
+- [x] **Step 1: Replace Sidebar.tsx with full implementation**
 
 ```tsx
 import { useMemo } from "react";
@@ -2877,7 +2877,7 @@ export function Sidebar() {
 Run: `npm run tauri dev`
 Expected: Sidebar shows working search input and a sorted list of companies with counts. Clicking a company highlights it.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/components/Sidebar.tsx
