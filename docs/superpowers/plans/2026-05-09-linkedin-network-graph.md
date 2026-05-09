@@ -4145,7 +4145,7 @@ Goal: Settings modal, re-import flow with undo, snapshot pruning, error/empty st
 - Create: `src/components/SettingsModal.tsx`
 - Modify: `src/components/Sidebar.tsx`, `src/state/store.ts`
 
-- [ ] **Step 1: Add settings open/close state to store**
+- [x] **Step 1: Add settings open/close state to store**
 
 In `src/state/store.ts` add:
 ```ts
@@ -4161,7 +4161,7 @@ lastImportSummary: null,
 setLastImportSummary: (s) => set({ lastImportSummary: s }),
 ```
 
-- [ ] **Step 2: Create SettingsModal**
+- [x] **Step 2: Create SettingsModal**
 
 `src/components/SettingsModal.tsx`:
 ```tsx
@@ -4260,7 +4260,7 @@ export function SettingsModal() {
 }
 ```
 
-- [ ] **Step 3: Add Settings button + Import button to sidebar footer; mount SettingsModal in Layout**
+- [x] **Step 3: Add Settings button + Import button to sidebar footer; mount SettingsModal in Layout**
 
 In `src/components/Sidebar.tsx`, add a footer block (above the closing `</aside>`):
 
@@ -4305,7 +4305,7 @@ export function Layout() {
 Run: `npm run tauri dev`
 Expected: Settings button at the bottom of sidebar opens a modal with data / graph / about sections; the edge-rule selector immediately changes the graph layout.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/components/SettingsModal.tsx src/components/Sidebar.tsx src/components/Layout.tsx src/state/store.ts

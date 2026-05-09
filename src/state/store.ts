@@ -46,6 +46,13 @@ export interface GraphState {
 
   noteMatchIds: Set<number> | null;
   setNoteMatchIds: (s: Set<number> | null) => void;
+
+  settingsOpen: boolean;
+  setSettingsOpen: (b: boolean) => void;
+  reimporting: boolean;
+  setReimporting: (b: boolean) => void;
+  lastImportSummary: { added: number; updated: number; archived: number; snapshotPath: string } | null;
+  setLastImportSummary: (s: { added: number; updated: number; archived: number; snapshotPath: string } | null) => void;
 }
 
 export const useStore = create<GraphState>(set => ({
@@ -95,4 +102,11 @@ export const useStore = create<GraphState>(set => ({
 
   noteMatchIds: null,
   setNoteMatchIds: (s) => set({ noteMatchIds: s }),
+
+  settingsOpen: false,
+  setSettingsOpen: (b) => set({ settingsOpen: b }),
+  reimporting: false,
+  setReimporting: (b) => set({ reimporting: b }),
+  lastImportSummary: null,
+  setLastImportSummary: (s) => set({ lastImportSummary: s }),
 }));

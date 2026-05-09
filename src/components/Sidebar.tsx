@@ -21,6 +21,8 @@ export function Sidebar() {
   const setShowArchived = useStore(s => s.setShowArchived);
   const noteMatchIds = useStore(s => s.noteMatchIds);
   const setNoteMatchIds = useStore(s => s.setNoteMatchIds);
+  const setSettingsOpen = useStore(s => s.setSettingsOpen);
+  const setReimporting = useStore(s => s.setReimporting);
 
   useEffect(() => {
     if (!search.trim().toLowerCase().startsWith("note:")) {
@@ -173,6 +175,17 @@ export function Sidebar() {
           />
           Show archived ({persons.filter(p => p.archived).length})
         </label>
+      </div>
+
+      <div className="mt-auto pt-4 border-t border-neutral-100 flex gap-2">
+        <button
+          onClick={() => setSettingsOpen(true)}
+          className="flex-1 px-2 py-1.5 text-xs border border-neutral-200 rounded hover:bg-neutral-50"
+        >⚙ Settings</button>
+        <button
+          onClick={() => setReimporting(true)}
+          className="flex-1 px-2 py-1.5 text-xs border border-neutral-200 rounded hover:bg-neutral-50"
+        >📥 Import</button>
       </div>
     </aside>
   );
