@@ -4321,7 +4321,7 @@ git commit -m "feat(settings): modal with data, graph, and about sections"
 - Modify: `src/components/ImportDialog.tsx` (allow non-modal use)
 - Create: `src/components/ImportToast.tsx`
 
-- [ ] **Step 1: Create ImportToast component (shows summary + Undo)**
+- [x] **Step 1: Create ImportToast component (shows summary + Undo)**
 
 `src/components/ImportToast.tsx`:
 ```tsx
@@ -4379,7 +4379,7 @@ export function ImportToast() {
 }
 ```
 
-- [ ] **Step 2: Wire re-import flow in Layout**
+- [x] **Step 2: Wire re-import flow in Layout**
 
 Modify `src/components/Layout.tsx`:
 ```tsx
@@ -4456,7 +4456,7 @@ function useStateLike() {
 Run: `npm run tauri dev`
 Expected: After initial import, click "📥 Import" in the sidebar to re-import. After import completes, a toast appears in the bottom-right with a working "Undo" button that restores the previous state.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add src/components/ImportToast.tsx src/components/Layout.tsx
