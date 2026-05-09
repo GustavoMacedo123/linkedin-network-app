@@ -2301,7 +2301,7 @@ git commit -m "feat(graph): Louvain community detection via graphology"
 **Files:**
 - Create: `src/graph/centrality.ts`, `tests/graph/centrality.test.ts`
 
-- [ ] **Step 1: Write failing test**
+- [x] **Step 1: Write failing test**
 
 `tests/graph/centrality.test.ts`:
 ```ts
@@ -2337,12 +2337,12 @@ describe("computeCentrality", () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npm test -- centrality`
 Expected: FAIL.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 `src/graph/centrality.ts`:
 ```ts
@@ -2378,12 +2378,12 @@ export function computeCentrality(
 
 (v1 uses normalized degree; full betweenness deferred to v1.1 — `graphology-metrics` can drop in later.)
 
-- [ ] **Step 4: Run tests to verify pass**
+- [x] **Step 4: Run tests to verify pass**
 
 Run: `npm test -- centrality`
 Expected: 2 tests pass.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/graph/centrality.ts tests/graph/centrality.test.ts
