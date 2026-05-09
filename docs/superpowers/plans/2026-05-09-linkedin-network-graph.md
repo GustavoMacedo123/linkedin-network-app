@@ -3783,11 +3783,11 @@ git commit -m "feat(profile): TagCombobox attached to person, creates new tags o
 - Create: `src/components/NotesEditor.tsx`, `src/lib/debounce.ts`
 - Modify: `src/components/ProfilePanel.tsx`, `package.json`
 
-- [ ] **Step 1: Install editor**
+- [x] **Step 1: Install editor**
 
 Run: `npm install @uiw/react-md-editor@^4`
 
-- [ ] **Step 2: Create debounce utility**
+- [x] **Step 2: Create debounce utility**
 
 `src/lib/debounce.ts`:
 ```ts
@@ -3803,7 +3803,7 @@ export function debounce<Args extends unknown[]>(
 }
 ```
 
-- [ ] **Step 3: Create NotesEditor component**
+- [x] **Step 3: Create NotesEditor component**
 
 `src/components/NotesEditor.tsx`:
 ```tsx
@@ -3872,7 +3872,7 @@ function formatRelative(d: Date): string {
 }
 ```
 
-- [ ] **Step 4: Wire into ProfilePanel**
+- [x] **Step 4: Wire into ProfilePanel**
 
 In ProfilePanel.tsx, append below the TAGS block:
 
@@ -3899,7 +3899,7 @@ Add import: `import { NotesEditor } from "./NotesEditor";`
 Run: `npm run tauri dev`
 Expected: Click a person, type in the notes editor; after ~500ms idle, "✓ Saved just now" appears. Close and reopen the app — notes persist.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/components/NotesEditor.tsx src/lib/debounce.ts src/components/ProfilePanel.tsx package.json package-lock.json

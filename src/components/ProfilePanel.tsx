@@ -7,6 +7,8 @@ import {
 } from "@/db/tags";
 import { loadAllPersons } from "@/db/persons";
 import { TagCombobox } from "./TagCombobox";
+import { NotesEditor } from "./NotesEditor";
+import { updateNotes } from "@/db/personDetail";
 
 export function ProfilePanel() {
   const selectedId = useStore(s => s.selectedId);
@@ -110,8 +112,16 @@ export function ProfilePanel() {
         />
       </div>
 
-      <div className="p-4 text-xs text-neutral-400 italic">
-        (Notes coming next.)
+      <div className="p-4">
+        <div className="text-xs font-bold text-neutral-400 mb-1.5">NOTES</div>
+        <NotesEditor
+          personId={detail.id}
+          initial={detail.notes_md}
+          onSave={async (notes) => {
+            const db = await getDb();
+            await updateNotes(db, detail.id, notes);
+          }}
+        />
       </div>
     </aside>
   );
