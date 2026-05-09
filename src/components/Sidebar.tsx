@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import { useStore } from "@/state/store";
 import { matchesFilter } from "@/state/selectors";
+import { getDb } from "@/db/client";
+import { createSavedView, deleteSavedView, listSavedViews } from "@/db/savedViews";
 
 export function Sidebar() {
   const persons = useStore(s => s.persons);
@@ -11,8 +13,29 @@ export function Sidebar() {
   const selectedTagIds = useStore(s => s.selectedTagIds);
   const toggleTagId = useStore(s => s.toggleTagId);
   const tags = useStore(s => s.tags);
+  const savedViews = useStore(s => s.savedViews);
+  const setSavedViews = useStore(s => s.setSavedViews);
+  const applyFilter = useStore(s => s.applyFilter);
   const showArchived = useStore(s => s.showArchived);
   const setShowArchived = useStore(s => s.setShowArchived);
+
+  async function saveCurrentView() {
+    const name = prompt("Name this view:");
+    if (!name) return;
+    const db = await getDb();
+    await createSavedView(db, name, {
+      search,
+      companies: [...selectedCompanies],
+      tagIds: [...selectedTagIds],
+    });
+    setSavedViews(await listSavedViews(db));
+  }
+
+  async function removeSavedView(id: number) {
+    const db = await getDb();
+    await deleteSavedView(db, id);
+    setSavedViews(await listSavedViews(db));
+  }
 
   const visible = useMemo(
     () => persons.filter(p => matchesFilter(p, {
@@ -90,6 +113,32 @@ export function Sidebar() {
               );
             })}
           </div>
+        )}
+      </div>
+
+      <div>
+        <div className="flex items-center justify-between mb-1.5">
+          <div className="text-xs font-bold text-neutral-400">SAVED VIEWS</div>
+          <button onClick={saveCurrentView} className="text-xs text-neutral-500 hover:text-neutral-900">+ save</button>
+        </div>
+        {savedViews.length === 0 ? (
+          <div className="text-xs italic text-neutral-400">Save the current filter for quick access.</div>
+        ) : (
+          <ul className="text-sm space-y-0.5">
+            {savedViews.map(v => (
+              <li key={v.id} className="flex items-center group">
+                <button
+                  onClick={() => applyFilter(v.filter as { search?: string; companies?: string[]; tagIds?: number[] })}
+                  className="flex-1 text-left px-1.5 py-0.5 rounded hover:bg-neutral-50 truncate"
+                >★ {v.name}</button>
+                <button
+                  onClick={() => removeSavedView(v.id)}
+                  className="text-xs text-neutral-300 hover:text-red-500 px-1 opacity-0 group-hover:opacity-100"
+                  aria-label={`Delete ${v.name}`}
+                >✕</button>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
 

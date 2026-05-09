@@ -38,6 +38,11 @@ export interface GraphState {
 
   tags: { id: number; name: string; color: string }[];
   setTags: (t: { id: number; name: string; color: string }[]) => void;
+
+  savedViews: { id: number; name: string; filter: unknown }[];
+  setSavedViews: (v: { id: number; name: string; filter: unknown }[]) => void;
+
+  applyFilter: (f: { search?: string; companies?: string[]; tagIds?: number[] }) => void;
 }
 
 export const useStore = create<GraphState>(set => ({
@@ -75,4 +80,13 @@ export const useStore = create<GraphState>(set => ({
 
   tags: [],
   setTags: (t) => set({ tags: t }),
+
+  savedViews: [],
+  setSavedViews: (v) => set({ savedViews: v }),
+
+  applyFilter: (f) => set({
+    search: f.search ?? "",
+    selectedCompanies: new Set(f.companies ?? []),
+    selectedTagIds: new Set(f.tagIds ?? []),
+  }),
 }));

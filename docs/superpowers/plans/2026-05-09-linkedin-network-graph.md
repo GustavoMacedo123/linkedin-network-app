@@ -3213,7 +3213,7 @@ git commit -m "feat(tags): db CRUD, sidebar chips with toggle filter"
 - Create: `src/db/savedViews.ts`, `tests/db/savedViews.test.ts`
 - Modify: `src/components/Sidebar.tsx`, `src/state/store.ts`, `src/App.tsx`
 
-- [ ] **Step 1: Tests**
+- [x] **Step 1: Tests**
 
 `tests/db/savedViews.test.ts`:
 ```ts
@@ -3241,12 +3241,12 @@ describe("savedViews db", () => {
 });
 ```
 
-- [ ] **Step 2: Run to verify failure**
+- [x] **Step 2: Run to verify failure**
 
 Run: `npm test -- "db/savedViews"`
 Expected: FAIL.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 `src/db/savedViews.ts`:
 ```ts
@@ -3278,12 +3278,12 @@ export async function deleteSavedView(db: Db, id: number): Promise<void> {
 }
 ```
 
-- [ ] **Step 4: Run tests to verify pass**
+- [x] **Step 4: Run tests to verify pass**
 
 Run: `npm test -- "db/savedViews"`
 Expected: 2 tests pass.
 
-- [ ] **Step 5: Add savedViews slice to store and load**
+- [x] **Step 5: Add savedViews slice to store and load**
 
 In `src/state/store.ts`, add to interface + body:
 ```ts
@@ -3307,7 +3307,7 @@ applyFilter: (f) => set({
 }),
 ```
 
-- [ ] **Step 6: Wire load in App.tsx refresh**
+- [x] **Step 6: Wire load in App.tsx refresh**
 
 Add to `refresh()` after tags:
 ```ts
@@ -3315,7 +3315,7 @@ const views = await import("./db/savedViews").then(m => m.listSavedViews(d));
 useStore.getState().setSavedViews(views);
 ```
 
-- [ ] **Step 7: Add Saved Views block to Sidebar**
+- [x] **Step 7: Add Saved Views block to Sidebar**
 
 In Sidebar.tsx, append (above the "Show archived" checkbox):
 
@@ -3385,7 +3385,7 @@ In Sidebar.tsx, append (above the "Show archived" checkbox):
 Run: `npm run tauri dev`
 Expected: After setting a filter, clicking "+ save" prompts for a name; the view appears in the list and clicking it re-applies the filter.
 
-- [ ] **Step 9: Commit**
+- [x] **Step 9: Commit**
 
 ```bash
 git add src/db/savedViews.ts tests/db/savedViews.test.ts src/state/store.ts src/components/Sidebar.tsx src/App.tsx
