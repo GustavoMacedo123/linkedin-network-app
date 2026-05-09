@@ -2,8 +2,19 @@ import { useMemo, useRef, useEffect } from "react";
 import ForceGraph2D, { ForceGraphMethods } from "react-force-graph-2d";
 import { useStore } from "@/state/store";
 import { computeSyntheticEdges } from "@/graph/synthEdges";
+import { detectCommunities } from "@/graph/community";
+import { computeCentrality } from "@/graph/centrality";
+import { assignColors } from "@/graph/colors";
 
 const YOU_ID = 0;
+
+interface NodeDatum {
+  id: number;
+  name: string;
+  isYou: boolean;
+  color: string;
+  size: number;
+}
 
 export function GraphCanvas() {
   const persons = useStore(s => s.persons);
@@ -13,18 +24,35 @@ export function GraphCanvas() {
 
   const data = useMemo(() => {
     const visible = persons.filter(p => !p.archived);
-    const youNode = { id: YOU_ID, name: "You", isYou: true };
-    const personNodes = visible.map(p => ({
-      id: p.id,
-      name: `${p.first_name} ${p.last_name}`,
-      company: p.company,
-      isYou: false,
-    }));
+    const ids = [YOU_ID, ...visible.map(p => p.id)];
+
     const edges = computeSyntheticEdges(
       visible.map(p => ({ id: p.id, company: p.company, title: p.title, tagIds: p.tagIds })),
       { rule: edgeRule, youId: YOU_ID }
     );
-    return { nodes: [youNode, ...personNodes], links: edges };
+
+    const communities = detectCommunities(ids, edges);
+    const colorMap = assignColors([...communities.values()]);
+    const centrality = computeCentrality(ids, edges);
+
+    const nodes: NodeDatum[] = ids.map(id => {
+      if (id === YOU_ID) {
+        return { id, name: "You", isYou: true, color: "#fbbf24", size: 10 };
+      }
+      const p = visible.find(pp => pp.id === id)!;
+      const cId = communities.get(id) ?? -1;
+      const color = colorMap.get(cId) ?? "#cbd5e1";
+      const c = centrality.get(id) ?? 0;
+      return {
+        id,
+        name: `${p.first_name} ${p.last_name}`,
+        isYou: false,
+        color,
+        size: 4 + c * 6,
+      };
+    });
+
+    return { nodes, links: edges };
   }, [persons, edgeRule]);
 
   useEffect(() => {
@@ -36,24 +64,24 @@ export function GraphCanvas() {
       <ForceGraph2D
         ref={fgRef}
         graphData={data}
-        nodeRelSize={5}
         backgroundColor="#fafafa"
         linkColor={() => "rgba(100,116,139,0.4)"}
         linkWidth={0.8}
-        nodeCanvasObject={(node, ctx, globalScale) => {
-          const r = node.isYou ? 8 : 5;
+        nodeCanvasObject={(node: any, ctx, globalScale) => {
+          const r = node.size;
           ctx.beginPath();
           ctx.arc(node.x ?? 0, node.y ?? 0, r, 0, 2 * Math.PI);
-          ctx.fillStyle = node.isYou ? "#fbbf24" : "#cbd5e1";
+          ctx.fillStyle = node.color;
           ctx.fill();
-          ctx.strokeStyle = "#475569";
+          ctx.strokeStyle = "#334155";
           ctx.lineWidth = 1 / globalScale;
           ctx.stroke();
         }}
-        onNodeClick={(node) => {
+        nodeLabel={(node: any) => node.name}
+        onNodeClick={(node: any) => {
           if (typeof node.id === "number" && node.id !== YOU_ID) setSelected(node.id);
         }}
-        cooldownTicks={120}
+        cooldownTicks={150}
       />
     </main>
   );

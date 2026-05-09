@@ -2397,7 +2397,7 @@ git commit -m "feat(graph): degree-based centrality scoring"
 **Files:**
 - Modify: `src/components/GraphCanvas.tsx`
 
-- [ ] **Step 1: Update GraphCanvas to color by community and size by centrality**
+- [x] **Step 1: Update GraphCanvas to color by community and size by centrality**
 
 Replace `src/components/GraphCanvas.tsx`:
 ```tsx
@@ -2496,7 +2496,7 @@ export function GraphCanvas() {
 Run: `npm run tauri dev`
 Expected: Nodes are color-coded by community (multiple distinct hues), bigger nodes for hubs, gold "you" node in the middle.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/components/GraphCanvas.tsx
