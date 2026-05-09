@@ -31,6 +31,9 @@ export default function App() {
     getDb().then(async d => {
       setDb(d);
       await refresh(d);
+      import("@tauri-apps/api/core").then(({ invoke }) =>
+        invoke("prune_old_snapshots", { maxAgeDays: 7 }).catch(() => {})
+      );
     }).catch(e => setError(String(e)));
   }, [refresh]);
 

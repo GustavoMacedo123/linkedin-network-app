@@ -4470,7 +4470,7 @@ git commit -m "feat(import): re-import from sidebar + ImportToast with snapshot-
 **Files:**
 - Modify: `src/App.tsx`
 
-- [ ] **Step 1: Invoke prune command on app startup**
+- [x] **Step 1: Invoke prune command on app startup**
 
 In `src/App.tsx`, in the initial `useEffect`, call the prune command (fire-and-forget, no UI):
 ```ts
@@ -4491,7 +4491,7 @@ useEffect(() => {
 Run: `npm run tauri dev`
 Expected: No visible change. Confirm via `Open data folder` (Settings) that `backup/` exists; older import snapshots auto-prune after 7 days.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/App.tsx
