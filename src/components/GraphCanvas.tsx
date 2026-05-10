@@ -7,6 +7,7 @@ import { detectCommunities } from "@/graph/community";
 import { computeCentrality } from "@/graph/centrality";
 import { assignColors } from "@/graph/colors";
 import { convexHull, expandHull } from "@/graph/clusterRegions";
+import { NetworkStats } from "./NetworkStats";
 
 const YOU_ID = 0;
 
@@ -86,70 +87,73 @@ export function GraphCanvas() {
   }, [persons.length]);
 
   return (
-    <main className="bg-neutral-50 relative overflow-hidden">
-      <ForceGraph2D
-        ref={fgRef}
-        graphData={data}
-        backgroundColor="#fafafa"
-        linkColor={() => "rgba(100,116,139,0.4)"}
-        linkWidth={0.8}
-        onRenderFramePre={(ctx) => {
-          const groups = new Map<string, { x: number; y: number }[]>();
-          for (const n of (data.nodes as any[])) {
-            if (n.isYou || n.color === "#cbd5e1") continue;
-            if (typeof n.x !== "number" || typeof n.y !== "number") continue;
-            const arr = groups.get(n.color);
-            if (arr) arr.push({ x: n.x, y: n.y });
-            else groups.set(n.color, [{ x: n.x, y: n.y }]);
-          }
-          for (const [color, pts] of groups) {
-            if (pts.length < 3) continue;
-            const hull = expandHull(convexHull(pts), 14);
+    <main className="bg-neutral-50 flex flex-col overflow-hidden">
+      <NetworkStats />
+      <div className="flex-1 min-h-0 relative">
+        <ForceGraph2D
+          ref={fgRef}
+          graphData={data}
+          backgroundColor="#fafafa"
+          linkColor={() => "rgba(100,116,139,0.4)"}
+          linkWidth={0.8}
+          onRenderFramePre={(ctx) => {
+            const groups = new Map<string, { x: number; y: number }[]>();
+            for (const n of (data.nodes as any[])) {
+              if (n.isYou || n.color === "#cbd5e1") continue;
+              if (typeof n.x !== "number" || typeof n.y !== "number") continue;
+              const arr = groups.get(n.color);
+              if (arr) arr.push({ x: n.x, y: n.y });
+              else groups.set(n.color, [{ x: n.x, y: n.y }]);
+            }
+            for (const [color, pts] of groups) {
+              if (pts.length < 3) continue;
+              const hull = expandHull(convexHull(pts), 14);
+              ctx.beginPath();
+              ctx.moveTo(hull[0].x, hull[0].y);
+              for (let i = 1; i < hull.length; i++) ctx.lineTo(hull[i].x, hull[i].y);
+              ctx.closePath();
+              ctx.fillStyle = color + "26";
+              ctx.fill();
+            }
+          }}
+          nodeCanvasObject={(node: any, ctx, globalScale) => {
+            ctx.save();
+            ctx.globalAlpha = node.dim ? 0.15 : 1;
             ctx.beginPath();
-            ctx.moveTo(hull[0].x, hull[0].y);
-            for (let i = 1; i < hull.length; i++) ctx.lineTo(hull[i].x, hull[i].y);
-            ctx.closePath();
-            ctx.fillStyle = color + "26";
+            ctx.arc(node.x ?? 0, node.y ?? 0, node.size, 0, 2 * Math.PI);
+            ctx.fillStyle = node.color;
             ctx.fill();
-          }
-        }}
-        nodeCanvasObject={(node: any, ctx, globalScale) => {
-          ctx.save();
-          ctx.globalAlpha = node.dim ? 0.15 : 1;
-          ctx.beginPath();
-          ctx.arc(node.x ?? 0, node.y ?? 0, node.size, 0, 2 * Math.PI);
-          ctx.fillStyle = node.color;
-          ctx.fill();
-          ctx.strokeStyle = "#334155";
-          ctx.lineWidth = 1 / globalScale;
-          ctx.stroke();
-          ctx.restore();
-        }}
-        nodeLabel={(node: any) => node.name}
-        onNodeClick={(node: any) => {
-          if (typeof node.id === "number" && node.id !== YOU_ID) setSelected(node.id);
-        }}
-        cooldownTicks={150}
-        onEngineStop={() => fgRef.current?.zoomToFit(400, 60)}
-        onRenderFramePost={(ctx, globalScale) => {
-          if (globalScale > 2.5) return;
-          for (const [color, members] of data.byColorMembers) {
-            if (members.length < 4) continue;
-            const positions = (data.nodes as any[]).filter(
-              n => n.color === color && typeof n.x === "number"
-            );
-            if (positions.length === 0) continue;
-            const cx = positions.reduce((s, n) => s + n.x, 0) / positions.length;
-            const cy = positions.reduce((s, n) => s + n.y, 0) / positions.length;
-            const label = data.communityLabel.get(color);
-            if (!label) continue;
-            ctx.font = `${12 / globalScale}px ui-sans-serif, system-ui, sans-serif`;
-            ctx.fillStyle = "rgba(55,65,81,0.8)";
-            ctx.textAlign = "center";
-            ctx.fillText(label, cx, cy);
-          }
-        }}
-      />
+            ctx.strokeStyle = "#334155";
+            ctx.lineWidth = 1 / globalScale;
+            ctx.stroke();
+            ctx.restore();
+          }}
+          nodeLabel={(node: any) => node.name}
+          onNodeClick={(node: any) => {
+            if (typeof node.id === "number" && node.id !== YOU_ID) setSelected(node.id);
+          }}
+          cooldownTicks={150}
+          onEngineStop={() => fgRef.current?.zoomToFit(400, 60)}
+          onRenderFramePost={(ctx, globalScale) => {
+            if (globalScale > 2.5) return;
+            for (const [color, members] of data.byColorMembers) {
+              if (members.length < 4) continue;
+              const positions = (data.nodes as any[]).filter(
+                n => n.color === color && typeof n.x === "number"
+              );
+              if (positions.length === 0) continue;
+              const cx = positions.reduce((s, n) => s + n.x, 0) / positions.length;
+              const cy = positions.reduce((s, n) => s + n.y, 0) / positions.length;
+              const label = data.communityLabel.get(color);
+              if (!label) continue;
+              ctx.font = `${12 / globalScale}px ui-sans-serif, system-ui, sans-serif`;
+              ctx.fillStyle = "rgba(55,65,81,0.8)";
+              ctx.textAlign = "center";
+              ctx.fillText(label, cx, cy);
+            }
+          }}
+        />
+      </div>
     </main>
   );
 }
