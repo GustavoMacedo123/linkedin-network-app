@@ -25,10 +25,13 @@ describe("computeNetworkStats", () => {
     });
   });
 
-  it("returns zero stats for empty input or all-archived", () => {
+  it("returns zero stats for empty input", () => {
     expect(computeNetworkStats([])).toEqual({
       total: 0, topCompany: null, companyCount: 0,
     });
+  });
+
+  it("returns zero stats when every person is archived", () => {
     expect(computeNetworkStats([make(1, "Google", true)])).toEqual({
       total: 0, topCompany: null, companyCount: 0,
     });
