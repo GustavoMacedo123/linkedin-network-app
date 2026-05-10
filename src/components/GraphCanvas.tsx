@@ -87,7 +87,7 @@ export function GraphCanvas() {
   }, [persons.length]);
 
   return (
-    <main className="bg-neutral-50 flex flex-col overflow-hidden">
+    <main className="bg-neutral-50 h-full flex flex-col overflow-hidden">
       <NetworkStats />
       <div className="flex-1 min-h-0 relative">
         <ForceGraph2D
