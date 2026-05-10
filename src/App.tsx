@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { Layout } from "./components/Layout";
 import { ImportDialog } from "./components/ImportDialog";
+import { UpdateBanner } from "./components/UpdateBanner";
 import { getDb, type Db } from "./db/client";
 import { loadAllPersons } from "./db/persons";
 import { listTags } from "./db/tags";
@@ -40,6 +41,7 @@ export default function App() {
   if (error) {
     return (
       <div className="p-8 max-w-lg mx-auto text-sm">
+        <UpdateBanner />
         <div className="text-red-600 font-semibold mb-2">Database error</div>
         <div className="text-neutral-600 mb-4 break-all">{error}</div>
         <div className="text-neutral-500">
@@ -58,11 +60,19 @@ export default function App() {
 
   if (personCount === 0) {
     return (
-      <div className="h-full flex items-center justify-center bg-neutral-50">
-        <ImportDialog db={db} onComplete={() => refresh(db)} />
+      <div className="h-full flex flex-col bg-neutral-50">
+        <UpdateBanner />
+        <div className="flex-1 flex items-center justify-center">
+          <ImportDialog db={db} onComplete={() => refresh(db)} />
+        </div>
       </div>
     );
   }
 
-  return <Layout />;
+  return (
+    <div className="h-full flex flex-col">
+      <UpdateBanner />
+      <div className="flex-1 min-h-0"><Layout /></div>
+    </div>
+  );
 }

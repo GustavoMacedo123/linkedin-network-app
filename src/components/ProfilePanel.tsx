@@ -8,6 +8,7 @@ import {
 import { loadAllPersons } from "@/db/persons";
 import { TagCombobox } from "./TagCombobox";
 import { NotesEditor } from "./NotesEditor";
+import { openUrl } from "@tauri-apps/plugin-opener";
 
 export function ProfilePanel() {
   const selectedId = useStore(s => s.selectedId);
@@ -94,12 +95,11 @@ export function ProfilePanel() {
             Connected: {detail.connected_on}
           </div>
         )}
-        <a
-          href={detail.linkedin_url}
-          target="_blank"
-          rel="noreferrer"
-          className="block text-center text-xs text-blue-600 mt-2 hover:underline"
-        >↗ Open on LinkedIn</a>
+        <button
+          type="button"
+          onClick={() => { void openUrl(detail.linkedin_url); }}
+          className="block w-full text-center text-xs text-blue-600 mt-2 hover:underline"
+        >↗ Open on LinkedIn</button>
         {detail.archived === 1 && (
           <div className="text-center text-xs text-amber-700 bg-amber-50 mt-2 py-1 rounded">
             Archived (no longer in latest CSV)

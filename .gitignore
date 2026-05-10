@@ -15,3 +15,7 @@ dist/
 build/
 src-tauri/target/
 *.log
+
+# Tauri updater signing keys — NEVER commit these
+src-tauri/.tauri-updater.key
+src-tauri/.tauri-updater.key.pub

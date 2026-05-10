@@ -9,13 +9,19 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "release": "node scripts/release.mjs",
+    "release:minor": "node scripts/release.mjs --minor",
+    "release:major": "node scripts/release.mjs --major"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.11.0",
     "@tauri-apps/plugin-dialog": "^2.7.1",
     "@tauri-apps/plugin-fs": "^2.5.1",
+    "@tauri-apps/plugin-opener": "^2.5.4",
+    "@tauri-apps/plugin-process": "^2.3.1",
     "@tauri-apps/plugin-sql": "^2.4.0",
+    "@tauri-apps/plugin-updater": "^2.10.1",
     "@uiw/react-md-editor": "^4.1.0",
     "graphology": "^0.25.4",
     "graphology-communities-louvain": "^2.0.2",
