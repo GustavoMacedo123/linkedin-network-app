@@ -1,0 +1,21 @@
+# Force LF line endings for all text files so builds (local + CI on different
+# OSes) embed identical bytes. This is critical for SQL migrations: the SQL
+# plugin hashes the migration content, and a CRLF/LF difference between two
+# builds will trip "migration X was previously applied but has been modified"
+# on existing user databases.
+* text=auto eol=lf
+
+# Binary files — never normalize.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.icns binary
+*.sqlite binary
+*.exe binary
+*.msi binary
+*.dmg binary
+*.deb binary
+*.rpm binary
+*.AppImage binary
